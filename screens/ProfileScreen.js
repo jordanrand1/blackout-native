@@ -30,17 +30,30 @@ class ProfileScreen extends React.Component {
         .catch( res => {setFlash(res, 'red')})
   }
 
+  profileView = () => {
+    const { mp, } = this.props.profile
+    if (mp === undefined) {
+      return
+    }
+    return (
+      <ScrollView style={styles.container}> 
+        <Text> {this.props.profile.username}</Text>
+        <Text> Kills: {mp.lifetime.all.kills}</Text>
+        <Text> Deaths: {mp.lifetime.all.deaths}</Text>
+        <Text> K/D Ratio: {mp.lifetime.all.kdRatio}</Text>
+        <Text> Wins: {mp.lifetime.all.wins}</Text>
+        <Text> Losses: {mp.lifetime.all.losses}</Text>
+      </ScrollView>
+    )
+  }
+
 
   
 
   render() {
     return (
-      <ScrollView style={styles.container}>
-        <Text>{this.props.profile.username}</Text>
-        <Text>{this.props.profile.title}</Text>
-        <Text>{this.props.profile.mp.level}</Text>
-
-
+      <ScrollView style={styles.container}>      
+        { this.profileView() }
       </ScrollView>
     );
   }
