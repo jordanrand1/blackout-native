@@ -15,19 +15,18 @@ class ProfileScreen extends React.Component {
     matches: []
   }
 
-  componentDidMount() {
-    const BASE_URL = 'https://my.callofduty.com/api/papi-client';
-    const params = {username: 'mastercomandr87', title: 'bo4', platform: 'xbl', days: 20}
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps !== this.props) {
+      const { username, platform, title } = this.props.search
+      const BASE_URL = 'https://my.callofduty.com/api/papi-client';
 
-    this.props.dispatch(getProfile(params))
-
-    const { title, platform, username, days } = params
-    const matchesEndpoint = BASE_URL + '/crm/cod/v2'
-    const uri = 
-      `${matchesEndpoint}/title/${title}/platform/${platform}/gamer/${username}/matches/days/${days}`
-    axios.get(uri)
-        .then( res => { this.setState({matches: res.data.data.matches}) } )
-        .catch( res => {setFlash(res, 'red')})
+      this.props.dispatch(getProfile(this.props.search))
+      const matchesEndpoint = BASE_URL + '/crm/cod/v2'
+      const uri = 
+        `${matchesEndpoint}/title/${title}/platform/${platform}/gamer/${username}/matches/days/${20}`
+      axios.get(uri)
+          .then( res => { this.setState({matches: res.data.data.matches}) } )
+    }
   }
   
 
@@ -49,7 +48,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  return { profile: state.codapi }
+  return { profile: state.codapi, search: state.search }
 }
 
 export default connect(mapStateToProps)(ProfileScreen)
