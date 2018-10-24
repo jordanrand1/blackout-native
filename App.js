@@ -4,6 +4,7 @@ import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 import { Provider } from 'react-redux';
 import store from './store';
+import Search from './components/Search';
 
 export default class App extends React.Component {
   state = {
@@ -23,6 +24,7 @@ export default class App extends React.Component {
       return (
         <Provider store={store}>
         <View style={styles.container}>
+          <Search />
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
           <AppNavigator />
         </View>
@@ -61,6 +63,6 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#000',
   },
 });
