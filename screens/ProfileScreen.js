@@ -28,12 +28,17 @@ class ProfileScreen extends React.Component {
           .then( res => { this.setState({matches: res.data.data.matches}) } )
     }
   }
+
+
   
 
   render() {
     return (
       <ScrollView style={styles.container}>
         <Text>{this.props.profile.username}</Text>
+        <Text>{this.props.profile.title}</Text>
+        <Text>{this.props.profile.mp.level()}</Text>
+
       </ScrollView>
     );
   }
