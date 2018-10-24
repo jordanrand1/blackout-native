@@ -12,7 +12,7 @@ class Search extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState !== this.state) {
+    if (prevState.platform !== this.state.platform) {
       this.props.dispatch(search(this.state))
     }
   }
