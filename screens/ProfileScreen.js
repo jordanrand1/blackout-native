@@ -39,12 +39,16 @@ class ProfileScreen extends React.Component {
     }
     return (
       <ScrollView style={styles.container}> 
-        <Text> {this.props.profile.username}</Text>
-        <Text> Kills: {mp.lifetime.all.kills}</Text>
-        <Text> Deaths: {mp.lifetime.all.deaths}</Text>
-        <Text> K/D Ratio: {mp.lifetime.all.kdRatio}</Text>
-        <Text> Wins: {mp.lifetime.all.wins}</Text>
-        <Text> Losses: {mp.lifetime.all.losses}</Text>
+        <Text style={styles.username}> {this.props.profile.username}</Text>
+        <Text style={styles.text}> 
+        {`
+        Kills: ${mp.lifetime.all.kills}
+        Deaths: ${mp.lifetime.all.deaths}
+        K/D Ratio: ${mp.lifetime.all.kdRatio}
+        Wins: ${mp.lifetime.all.wins}
+        Losses: ${mp.lifetime.all.losses}
+        `}
+        </Text>
       </ScrollView>
     )
   }
@@ -57,7 +61,7 @@ class ProfileScreen extends React.Component {
       <ScrollView style={styles.container}> 
         {
           this.props.search.username === undefined ? 
-          <Text></Text>
+          <Text style={styles.noProfileText}>Please enter your username and select a platform above</Text>
           :     
           this.profileView()
         }
@@ -72,9 +76,21 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     backgroundColor: '#282828',
   },
+  noProfileText: {
+    color: 'white',
+    fontSize: 30,
+    textAlign: 'center',
+  },
+  username: {
+    color: 'orange',
+    textAlign: 'center',
+    fontSize: 30,
+  },
   text: {
     color: 'white',
-  },
+    fontSize: 20,
+    textAlign: 'center',
+  }
 });
 
 const mapStateToProps = (state) => {
