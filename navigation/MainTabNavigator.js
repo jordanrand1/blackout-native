@@ -90,9 +90,19 @@ WeaponsStack.navigationOptions = {
 };
 
 
-export default createBottomTabNavigator({
+export default createBottomTabNavigator(
+  {
   HomeStack,
   LinksStack,
   WeaponsStack,
   ProfileStack,
-});
+},
+{
+  tabBarOptions: {
+    activeTintColor: 'orange',
+    inactiveTintColor: 'gray',
+    inactiveBackgroundColor: 'black',
+    activeBackgroundColor: 'grey',
+  },
+}
+);
