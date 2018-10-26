@@ -53,8 +53,14 @@ class ProfileScreen extends React.Component {
     )
   }
 
+  matchList = () => {
+    return this.state.matches.map((match) => {
+      return (
+          <Text>{match}</Text>
+      )
+    })
 
-  
+}
 
   render() {
     return (
