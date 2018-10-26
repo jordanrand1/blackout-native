@@ -54,8 +54,13 @@ class ProfileScreen extends React.Component {
 
   render() {
     return (
-      <ScrollView style={styles.container}>      
-        { this.profileView() }
+      <ScrollView style={styles.container}> 
+        {
+          this.props.search.username === undefined ? 
+          <Text></Text>
+          :     
+          this.profileView()
+        }
       </ScrollView>
     );
   }
@@ -65,7 +70,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 15,
-    backgroundColor: '#fff',
+    backgroundColor: '#282828',
+  },
+  text: {
+    color: 'white',
   },
 });
 

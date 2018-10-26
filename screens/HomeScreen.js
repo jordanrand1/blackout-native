@@ -1,14 +1,13 @@
 import React from 'react';
 import {
-  Image,
   Platform,
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
-
+import { Card } from 'react-native-elements';
+import axios from 'axios';
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
@@ -19,39 +18,56 @@ export default class HomeScreen extends React.Component {
     header: null,
   };
 
+  state = {
+    title: 'bo3',
+    platform: 'psn',
+    type: 'core',
+    mode: 'war',
+    time: 'alltime',
+    page: 1,
+    data: {},
+  }
+
+  componentDidMount() {
+    const BASE_URL = 'https://my.callofduty.com/api/papi-client';
+    const { title, platform, time, type, mode, page } = this.state
+    const leaderboardEndpoint = BASE_URL + '/leaderboards/v2'
+    const uri = 
+      `${leaderboardEndpoint}/title/${title}/platform/${platform}/time/${time}/type/${type}/mode/${mode}/page/${page}`
+    axios.get(uri)
+      .then( res => {
+        this.setState({ data: res.data.data })
+      })
+  }
+
+  createCards = () => {
+    if (this.state.data.entries !== undefined) {
+      return this.state.data.entries.map( entry => {
+        const { kdRatio, scorePerMinute, gamesPlayed } = entry.values
+        const {username} = entry
+        return(
+          <Card style={styles.playerCard} key={entry.rank}>
+            <Text>
+            {`
+            ${username}
+
+            K/D: ${kdRatio.toFixed(2)} | Score Per Minute: ${scorePerMinute.toFixed(2)}
+            Games Played: ${gamesPlayed} 
+            `}
+            </Text>
+          </Card>
+        )
+      })
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-
-          <View style={styles.getStartedContainer}>
-            {this._maybeRenderDevelopmentModeWarning()}
-
-            <Text style={styles.getStartedText}>Get started by opening</Text>
-
-            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
-            </View>
-
-            <Text style={styles.getStartedText}>
-              Text change.
-            </Text>
-          </View>
-
-          <View style={styles.helpContainer}>
-            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
-            </TouchableOpacity>
-          </View>
+          <Text style={styles.title}>Leaderboard</Text>
+          {this.createCards()}
         </ScrollView>
-
-        <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
-
-          <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
-          </View>
-        </View>
       </View>
     );
   }
@@ -91,9 +107,18 @@ export default class HomeScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  title: {
+    color: 'orange',
+    fontSize: 25,
+    textAlign: 'center',
+  },
+  playerCard: {
+    backgroundColor: 'black',
+    color: 'white',
+  },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#282828',
   },
   developmentModeText: {
     marginBottom: 20,
