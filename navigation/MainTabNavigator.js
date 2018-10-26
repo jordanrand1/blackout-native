@@ -7,6 +7,7 @@ import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import WeaponsScreen from '../screens/WeaponsScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -58,8 +59,25 @@ const ProfileStack = createStackNavigator({
   Profile: ProfileScreen,
 });
 
-SettingsStack.navigationOptions = {
+ProfileStack.navigationOptions = {
   tabBarLabel: 'Profile',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      name={
+        Platform.OS === 'ios'
+          ? `ios-information-circle${focused ? '' : '-outline'}`
+          : 'md-information-circle'
+      }
+    />
+  ),
+};
+
+const WeaponsStack = createStackNavigator({
+  Weapons: WeaponsScreen,
+});
+
+WeaponsStack.navigationOptions = {
+  tabBarLabel: 'Weapons',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       name={
@@ -75,6 +93,6 @@ SettingsStack.navigationOptions = {
 export default createBottomTabNavigator({
   HomeStack,
   LinksStack,
-  SettingsStack,
+  WeaponsStack,
   ProfileStack,
 });

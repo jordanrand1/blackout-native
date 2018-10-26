@@ -8,7 +8,7 @@ import axios from 'axios';
 class ProfileScreen extends React.Component {
 
   static navigationOptions = {
-    title: 'Profile',
+    header: null,
   };
 
   state = {
