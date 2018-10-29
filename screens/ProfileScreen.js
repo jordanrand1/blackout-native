@@ -33,20 +33,25 @@ class ProfileScreen extends React.Component {
   }
 
   profileView = () => {
-    const { mp, } = this.props.profile
-    if (mp === undefined) {
+    const { metadata, stats } = this.props.profile
+    if (metadata === undefined) {
       return
     }
     return (
       <ScrollView style={styles.container}> 
-        <Text style={styles.username}> {this.props.profile.username}</Text>
+        <Text style={styles.username}> {this.props.profile.metadata.platformUserHandle}</Text>
         <Text style={styles.text}> 
         {`
-        Kills: ${mp.lifetime.all.kills}
-        Deaths: ${mp.lifetime.all.deaths}
-        K/D Ratio: ${mp.lifetime.all.kdRatio}
-        Wins: ${mp.lifetime.all.wins}
-        Losses: ${mp.lifetime.all.losses}
+          Level: ${stats[0].displayValue}
+          Kills: ${stats[2].displayValue}
+          Deaths: ${stats[3].displayValue}
+          K/D Ratio: ${stats[1].displayValue}
+          Assists: ${stats[4].displayValue}
+          Wins: ${stats[15].displayValue}
+          Losses: ${stats[16].displayValue}
+          Win Rate: ${stats[14].displayValue}
+          Total Games Played: ${stats[13].displayValue}
+          Time Played: ${stats[18].displayValue}
         `}
         </Text>
       </ScrollView>
@@ -66,7 +71,7 @@ class ProfileScreen extends React.Component {
       })
     }
   }
-  
+
   render() {
     return (
       <ScrollView style={styles.container}> 
