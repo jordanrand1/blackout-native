@@ -19,7 +19,7 @@ class ProfileScreen extends React.Component {
     if (prevProps !== this.props) {
       const { username, title, platform } = this.props.search
 
-      const BASE_URL = 'https://my.callofduty.com/api/papi-client';
+      const BASE_URL = 'https://cod-api.tracker.gg/v1/standard/bo4/profile';
 
       this.props.dispatch(getProfile(this.props.search))
 

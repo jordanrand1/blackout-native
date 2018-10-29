@@ -7,8 +7,8 @@ class Search extends React.Component {
 
   state = {
     title: 'bo4',
-    platform: 'ps4',
-    username: ''
+    platform: 0,
+    username: '',
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -17,24 +17,28 @@ class Search extends React.Component {
     }
   }
 
+  handleBNET = (text) => {
+    this.setState({ username: text.replace("#", "-") })
+  }
+
   render() {
     return(
       <View style={ styles.SearchBar }>
         <TouchableOpacity onPress={() => this.setState({title: 'bo4'})}>
           <Image style={{ width: 40, height: 40 }} source={require('../assets/images/bo4logo.png')} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.setState({platform: 'psn'})}>
+        <TouchableOpacity onPress={() => this.setState({platform: 2})}>
           <Image style={ this.state.platform === 'psn' ? styles.Platforms : styles.PlatformsInactive } source={require('../assets/images/psnlogo.png')} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.setState({platform: 'xbl'})}>
+        <TouchableOpacity onPress={() => this.setState({platform: 1})}>
           <Image style={ this.state.platform === 'xbl' ? styles.Platforms : styles.PlatformsInactive } source={require('../assets/images/xbllogo.png')} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.setState({platform: 'bnet'})}>
+        <TouchableOpacity onPress={() => this.setState({platform: 6})}>
           <Image style={ this.state.platform === 'bnet' ? styles.Platforms : styles.PlatformsInactive } source={require('../assets/images/bnetlogo.png')} />
         </TouchableOpacity>
         <TextInput
           style={{ padding: 10, height: 40, color: 'white', borderColor: 'orange', borderWidth: 1, flexGrow: 2, borderRadius: 50 }}
-          onChangeText={(text) => this.setState({username: text})}
+          onChangeText={(text) => text.includes("#") ? this.handleBNET(text) : this.setState({ username: text })}
           value={this.state.text}
         />  
       </View>

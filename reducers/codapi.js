@@ -4,7 +4,7 @@ const GET_LEADERBOARD = 'GET_LEADERBOARD'
 const GET_MATCHES = 'GET_MATCHES'
 const GET_PROFILE = 'GET_PROFILE'
 
-const BASE_URL = 'https://my.callofduty.com/api/papi-client';
+const BASE_URL = 'https://cod-api.tracker.gg/v1/standard/bo4/profile';
 
 export const getLeaderboard = (params) => {
   const { title, platform, time, type, mode, page } = params
@@ -23,17 +23,16 @@ export const getLeaderboard = (params) => {
 }
 
 export const getProfile = (params) => {
-  const { title, platform, username } = params
-  const profileEndpoint = BASE_URL + '/crm/cod/v2'
+  const { platform, username } = params
   const uri = 
-    `${profileEndpoint}/title/${title}/platform/${platform}/gamer/${username}/profile`
+    `${BASE_URL}/${platform}/${username}`
   return (dispatch) => {
     axios.get(uri)
       .then( res => dispatch({
         type: GET_PROFILE,
         profile: res.data.data,
       }) )
-      .catch( res => {setFlash(res, 'red')})
+      .catch( res => {setFlash("We were unable to find your profile, please try again", 'red')})
   }
 }
 
