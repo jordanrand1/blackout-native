@@ -55,7 +55,7 @@ class ProfileScreen extends React.Component {
 
   matchList = () => {
     if (this.state.matches.entries !== undefined) {
-      return this.state.matches.entries.map( entry,i => {
+      return this.state.matches.entries.map( entry, i => {
         return(
           <Card style={styles.playerCard} key={i}>
             <Text>
@@ -66,6 +66,7 @@ class ProfileScreen extends React.Component {
       })
     }
   }
+  
   render() {
     return (
       <ScrollView style={styles.container}> 
