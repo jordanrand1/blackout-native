@@ -1,5 +1,6 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text } from 'react-native';
+import { Card } from 'react-native-elements';
 import { ExpoLinksView } from '@expo/samples';
 import { getProfile } from '../reducers/codapi';
 import { connect } from 'react-redux';
@@ -40,20 +41,20 @@ class ProfileScreen extends React.Component {
     return (
       <ScrollView style={styles.container}> 
         <Text style={styles.username}> {this.props.profile.metadata.platformUserHandle}</Text>
-        <Text style={styles.text}> 
-        {`
-          Level: ${stats[0].displayValue}
-          Kills: ${stats[2].displayValue}
-          Deaths: ${stats[3].displayValue}
-          K/D Ratio: ${stats[1].displayValue}
-          Assists: ${stats[4].displayValue}
-          Wins: ${stats[15].displayValue}
-          Losses: ${stats[16].displayValue}
-          Win Rate: ${stats[14].displayValue}
-          Total Games Played: ${stats[13].displayValue}
-          Time Played: ${stats[18].displayValue}
-        `}
-        </Text>
+            <Text style={styles.playerCard}> 
+                {`
+                  Level: ${stats[0].displayValue}
+                  Kills: ${stats[2].displayValue}
+                  Deaths: ${stats[3].displayValue}
+                  K/D Ratio: ${stats[1].displayValue}
+                  Assists: ${stats[4].displayValue}
+                  Wins: ${stats[15].displayValue}
+                  Losses: ${stats[16].displayValue}
+                  Win Rate: ${stats[14].displayValue}
+                  Total Games Played: ${stats[13].displayValue}
+                  Time Played: ${stats[18].displayValue}
+                `}
+            </Text>
       </ScrollView>
     )
   }
@@ -101,6 +102,13 @@ const styles = StyleSheet.create({
     color: 'orange',
     textAlign: 'center',
     fontSize: 30,
+  },
+  playerCard: {
+    color: 'white',
+    borderColor: 'blue',
+    borderWidth: 1,
+    borderRadius: 2,
+    backgroundColor: '#282828', 
   },
   text: {
     color: 'white',
